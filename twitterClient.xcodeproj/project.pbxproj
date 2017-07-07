@@ -12,6 +12,10 @@
 		FE012ADE1F0EC19800EABFE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE012ADC1F0EC19800EABFE4 /* Main.storyboard */; };
 		FE012AE01F0EC19800EABFE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE012ADF1F0EC19800EABFE4 /* Assets.xcassets */; };
 		FE012AE31F0EC19800EABFE4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE012AE11F0EC19800EABFE4 /* LaunchScreen.storyboard */; };
+		FEED538C1F0FAAEC00F4C262 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEED538B1F0FAAEC00F4C262 /* SafariServices.framework */; };
+		FEED538E1F0FAB3100F4C262 /* loginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED538D1F0FAB3100F4C262 /* loginVC.swift */; };
+		FEED53901F0FB90600F4C262 /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED538F1F0FB90600F4C262 /* followersVC.swift */; };
+		FEED53921F0FBBF600F4C262 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED53911F0FBBF600F4C262 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		FE012AE21F0EC19800EABFE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE012AE41F0EC19800EABFE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE012AEA1F0EC4CE00EABFE4 /* twitterClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "twitterClient-Bridging-Header.h"; sourceTree = "<group>"; };
+		FEED538B1F0FAAEC00F4C262 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		FEED538D1F0FAB3100F4C262 /* loginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginVC.swift; sourceTree = "<group>"; };
+		FEED538F1F0FB90600F4C262 /* followersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersVC.swift; sourceTree = "<group>"; };
+		FEED53911F0FBBF600F4C262 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEED538C1F0FAAEC00F4C262 /* SafariServices.framework in Frameworks */,
 				1A8604139EB761925991238E /* Pods_twitterClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,6 +51,7 @@
 		4637F0FEC0E85E8169DF44C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FEED538B1F0FAAEC00F4C262 /* SafariServices.framework */,
 				2548C6CC97A7D9334B21252E /* Pods_twitterClient.framework */,
 			);
 			name = Frameworks;
@@ -78,11 +88,14 @@
 			isa = PBXGroup;
 			children = (
 				FE012AD81F0EC19800EABFE4 /* AppDelegate.swift */,
+				FEED538D1F0FAB3100F4C262 /* loginVC.swift */,
+				FEED538F1F0FB90600F4C262 /* followersVC.swift */,
 				FE012ADC1F0EC19800EABFE4 /* Main.storyboard */,
 				FE012AE11F0EC19800EABFE4 /* LaunchScreen.storyboard */,
 				FE012ADF1F0EC19800EABFE4 /* Assets.xcassets */,
 				FE012AE41F0EC19800EABFE4 /* Info.plist */,
 				FE012AEA1F0EC4CE00EABFE4 /* twitterClient-Bridging-Header.h */,
+				FEED53911F0FBBF600F4C262 /* Constants.swift */,
 			);
 			path = twitterClient;
 			sourceTree = "<group>";
@@ -212,7 +225,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEED53901F0FB90600F4C262 /* followersVC.swift in Sources */,
+				FEED538E1F0FAB3100F4C262 /* loginVC.swift in Sources */,
 				FE012AD91F0EC19800EABFE4 /* AppDelegate.swift in Sources */,
+				FEED53921F0FBBF600F4C262 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +355,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = N455B9353D;
 				INFOPLIST_FILE = twitterClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.binshakerr.twitterClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -356,6 +373,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = N455B9353D;
 				INFOPLIST_FILE = twitterClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.binshakerr.twitterClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
