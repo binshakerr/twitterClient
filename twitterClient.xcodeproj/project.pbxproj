@@ -16,6 +16,10 @@
 		FEED538E1F0FAB3100F4C262 /* loginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED538D1F0FAB3100F4C262 /* loginVC.swift */; };
 		FEED53901F0FB90600F4C262 /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED538F1F0FB90600F4C262 /* followersVC.swift */; };
 		FEED53921F0FBBF600F4C262 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED53911F0FBBF600F4C262 /* Constants.swift */; };
+		FEED53981F0FE3C600F4C262 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED53971F0FE3C600F4C262 /* Follower.swift */; };
+		FEED539C1F0FF03900F4C262 /* followerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED539B1F0FF03900F4C262 /* followerCell.swift */; };
+		FEED539E1F0FF24500F4C262 /* FancyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED539D1F0FF24500F4C262 /* FancyImageView.swift */; };
+		FEED53A01F0FF27000F4C262 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED539F1F0FF27000F4C262 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,11 @@
 		FEED538D1F0FAB3100F4C262 /* loginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginVC.swift; sourceTree = "<group>"; };
 		FEED538F1F0FB90600F4C262 /* followersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersVC.swift; sourceTree = "<group>"; };
 		FEED53911F0FBBF600F4C262 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FEED53971F0FE3C600F4C262 /* Follower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
+		FEED539B1F0FF03900F4C262 /* followerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followerCell.swift; sourceTree = "<group>"; };
+		FEED539D1F0FF24500F4C262 /* FancyImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyImageView.swift; sourceTree = "<group>"; };
+		FEED539F1F0FF27000F4C262 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		FEED53A11F1023F000F4C262 /* twitterClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = twitterClient.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,17 +96,54 @@
 		FE012AD71F0EC19800EABFE4 /* twitterClient */ = {
 			isa = PBXGroup;
 			children = (
-				FE012AD81F0EC19800EABFE4 /* AppDelegate.swift */,
-				FEED538D1F0FAB3100F4C262 /* loginVC.swift */,
-				FEED538F1F0FB90600F4C262 /* followersVC.swift */,
+				FEED53931F0FE04400F4C262 /* Model */,
+				FEED53941F0FE05100F4C262 /* View */,
+				FEED53951F0FE05700F4C262 /* Controller */,
+				FEED53961F0FE37600F4C262 /* Others */,
+			);
+			path = twitterClient;
+			sourceTree = "<group>";
+		};
+		FEED53931F0FE04400F4C262 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FEED53971F0FE3C600F4C262 /* Follower.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		FEED53941F0FE05100F4C262 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				FE012ADC1F0EC19800EABFE4 /* Main.storyboard */,
 				FE012AE11F0EC19800EABFE4 /* LaunchScreen.storyboard */,
+				FEED539B1F0FF03900F4C262 /* followerCell.swift */,
+				FEED539D1F0FF24500F4C262 /* FancyImageView.swift */,
+				FEED539F1F0FF27000F4C262 /* CardView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		FEED53951F0FE05700F4C262 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FEED538F1F0FB90600F4C262 /* followersVC.swift */,
+				FEED538D1F0FAB3100F4C262 /* loginVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		FEED53961F0FE37600F4C262 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				FE012AD81F0EC19800EABFE4 /* AppDelegate.swift */,
 				FE012ADF1F0EC19800EABFE4 /* Assets.xcassets */,
 				FE012AE41F0EC19800EABFE4 /* Info.plist */,
 				FE012AEA1F0EC4CE00EABFE4 /* twitterClient-Bridging-Header.h */,
+				FEED53A11F1023F000F4C262 /* twitterClient.entitlements */,
 				FEED53911F0FBBF600F4C262 /* Constants.swift */,
 			);
-			path = twitterClient;
+			name = Others;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +184,11 @@
 						DevelopmentTeam = N455B9353D;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -225,10 +276,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEED539E1F0FF24500F4C262 /* FancyImageView.swift in Sources */,
 				FEED53901F0FB90600F4C262 /* followersVC.swift in Sources */,
+				FEED53981F0FE3C600F4C262 /* Follower.swift in Sources */,
 				FEED538E1F0FAB3100F4C262 /* loginVC.swift in Sources */,
 				FE012AD91F0EC19800EABFE4 /* AppDelegate.swift in Sources */,
 				FEED53921F0FBBF600F4C262 /* Constants.swift in Sources */,
+				FEED53A01F0FF27000F4C262 /* CardView.swift in Sources */,
+				FEED539C1F0FF03900F4C262 /* followerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +408,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = twitterClient/twitterClient.entitlements;
 				DEVELOPMENT_TEAM = N455B9353D;
 				INFOPLIST_FILE = twitterClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -371,6 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = twitterClient/twitterClient.entitlements;
 				DEVELOPMENT_TEAM = N455B9353D;
 				INFOPLIST_FILE = twitterClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

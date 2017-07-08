@@ -11,5 +11,10 @@ import UIKit
 let K_mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 let K_appDelegate = UIApplication.shared.delegate as! AppDelegate
 
-let K_consumerKey = "y6Grkh66rYhHBqCTjEXcp2Gry"
-let K_consumerSecret = "oazGBjKBOOo4ARMLjyYXATsO0MIEKPbahvzr0C35WVk4BufsPq"
+let K_consumerKey = "oWPX52FX0UvKRS6PYjqB9qVyh"
+let K_consumerSecret = "pfPELMNZX7SZsaF1S6cluNlZapWaGHegn13UEKOITZ84CQD78F"
+let K_accessToken = "883283258364092419-aLFhKkzYZbDYZeVm4JVRcFs22pOEa8r"
+let K_accessSecret = "TY703rzLE8o5FIIacU8pQyj0HtulD0THuyLtMiGq9uOeS"
+
+let K_authURL = "https://api.twitter.com/oauth2/token"
+

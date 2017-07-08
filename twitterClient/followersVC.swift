@@ -7,14 +7,45 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+import STTwitter
 
 class followersVC: UITableViewController {
+    
+    var followers = [Follower]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
+        
+        let st = STTwitterAPI(oAuthConsumerKey: K_consumerKey, consumerSecret: K_consumerSecret, oauthToken: K_accessToken, oauthTokenSecret: K_accessSecret)
+        
+        st!.verifyCredentials(userSuccessBlock: { (username, userID) in
+            
+            st!.getFollowersForScreenName(username, successBlock: { (followers) in
+                
+                let followersArray = followers as! [[String: Any]]
+                
+                for follower in followersArray {
+                    
+                    let f = Follower(fullName: follower["name"] as! String, handle: follower["screen_name"] as! String, profileImageURL: follower["profile_image_url"] as! String, bio: follower["description"] as? String)
+ 
+                    self.followers.append(f)
+                }
+                
+                self.tableView.reloadData()
+                
+            }, errorBlock: { (error) in
+                print(error!.localizedDescription)
+            })
+            
+        }, errorBlock: { (error) in
+            print(error!.localizedDescription)
+        })
+        
     }
+    
+    
 
     @IBAction func logoutBtnPressed(_ sender: Any) {
         
@@ -40,19 +71,21 @@ class followersVC: UITableViewController {
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+
+        return followers.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "followerCell", for: indexPath) as! followerCell
 
-        // Configure the cell...
+        let follower = followers[indexPath.row]
+        cell.setupCell(follower: follower)
 
         return cell
     }
-    */
+    
 
  
 

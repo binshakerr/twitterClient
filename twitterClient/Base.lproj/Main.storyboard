@@ -46,18 +46,65 @@
         <scene sceneID="XXd-0R-2ox">
             <objects>
                 <tableViewController id="vKO-sO-uq0" customClass="followersVC" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rfd-bY-sdc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="116" sectionHeaderHeight="28" sectionFooterHeight="28" id="rfd-bY-sdc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="u1c-Yu-o0U">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="followerCell" rowHeight="116" id="u1c-Yu-o0U" customClass="followerCell" customModule="twitterClient" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="116"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u1c-Yu-o0U" id="EZU-6P-f4M">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rxi-91-Z7r">
+                                            <rect key="frame" x="8" y="8" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="Q4m-hD-Vgl"/>
+                                                <constraint firstAttribute="width" constant="60" id="qjN-1A-F4X"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLR-mu-8T0">
+                                            <rect key="frame" x="76" y="8" width="291" height="23.5"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VVX-ek-Gi1">
+                                            <rect key="frame" x="76" y="36.5" width="291" height="20.5"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90T-I3-Q3A">
+                                            <rect key="frame" x="8" y="76" width="359" height="31.5"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="VVX-ek-Gi1" secondAttribute="trailing" constant="8" id="1PU-fw-3J5"/>
+                                        <constraint firstAttribute="bottom" secondItem="90T-I3-Q3A" secondAttribute="bottom" constant="8" id="CaA-fR-sBO"/>
+                                        <constraint firstItem="90T-I3-Q3A" firstAttribute="leading" secondItem="EZU-6P-f4M" secondAttribute="leading" constant="8" id="G3M-Qi-U6D"/>
+                                        <constraint firstItem="Rxi-91-Z7r" firstAttribute="top" secondItem="EZU-6P-f4M" secondAttribute="top" constant="8" id="Jly-Ty-oRU"/>
+                                        <constraint firstAttribute="trailing" secondItem="90T-I3-Q3A" secondAttribute="trailing" constant="8" id="R9Y-g0-0za"/>
+                                        <constraint firstItem="bLR-mu-8T0" firstAttribute="top" secondItem="EZU-6P-f4M" secondAttribute="top" constant="8" id="URZ-Sy-bEY"/>
+                                        <constraint firstItem="Rxi-91-Z7r" firstAttribute="leading" secondItem="EZU-6P-f4M" secondAttribute="leading" constant="8" id="YmT-mA-gdP"/>
+                                        <constraint firstAttribute="trailing" secondItem="bLR-mu-8T0" secondAttribute="trailing" constant="8" id="Yud-Tk-ppu"/>
+                                        <constraint firstItem="90T-I3-Q3A" firstAttribute="top" secondItem="Rxi-91-Z7r" secondAttribute="bottom" constant="8" id="ZD0-lO-Puu"/>
+                                        <constraint firstItem="VVX-ek-Gi1" firstAttribute="top" secondItem="bLR-mu-8T0" secondAttribute="bottom" constant="5" id="etV-Cx-5Qs"/>
+                                        <constraint firstItem="VVX-ek-Gi1" firstAttribute="leading" secondItem="Rxi-91-Z7r" secondAttribute="trailing" constant="8" id="itX-ze-rz6"/>
+                                        <constraint firstItem="bLR-mu-8T0" firstAttribute="leading" secondItem="Rxi-91-Z7r" secondAttribute="trailing" constant="8" id="v4P-sR-kSg"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="bioLabel" destination="90T-I3-Q3A" id="cGl-bi-Zhh"/>
+                                    <outlet property="fullNameLabel" destination="bLR-mu-8T0" id="dyS-iR-QUd"/>
+                                    <outlet property="handleLabel" destination="VVX-ek-Gi1" id="0HJ-TR-MQX"/>
+                                    <outlet property="profileImageView" destination="Rxi-91-Z7r" id="lTS-gh-eBt"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -75,7 +122,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C1m-E4-1Cr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-791" y="1396"/>
+            <point key="canvasLocation" x="-791.20000000000005" y="1395.6521739130435"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="X9L-ek-vJb">
