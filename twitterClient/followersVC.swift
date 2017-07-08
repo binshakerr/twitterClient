@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftyJSON
 import STTwitter
+import ARSLineProgress
 
 class followersVC: UITableViewController {
     
@@ -22,6 +21,8 @@ class followersVC: UITableViewController {
         
         st!.verifyCredentials(userSuccessBlock: { (username, userID) in
             
+            ARSLineProgress.show()
+            
             st!.getFollowersForScreenName(username, successBlock: { (followers) in
                 
                 let followersArray = followers as! [[String: Any]]
@@ -33,13 +34,18 @@ class followersVC: UITableViewController {
                     self.followers.append(f)
                 }
                 
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    ARSLineProgress.hide()
+                    self.tableView.reloadData()
+                }
                 
             }, errorBlock: { (error) in
+                ARSLineProgress.hide()
                 print(error!.localizedDescription)
             })
             
         }, errorBlock: { (error) in
+            ARSLineProgress.hide()
             print(error!.localizedDescription)
         })
         
@@ -84,6 +90,15 @@ class followersVC: UITableViewController {
         cell.setupCell(follower: follower)
 
         return cell
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
     
 
