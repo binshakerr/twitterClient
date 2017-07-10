@@ -20,6 +20,10 @@
 		FEED539C1F0FF03900F4C262 /* followerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED539B1F0FF03900F4C262 /* followerCell.swift */; };
 		FEED539E1F0FF24500F4C262 /* FancyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED539D1F0FF24500F4C262 /* FancyImageView.swift */; };
 		FEED53A01F0FF27000F4C262 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED539F1F0FF27000F4C262 /* CardView.swift */; };
+		FEF2785B1F11AA4F00B93DA9 /* followerDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF2785A1F11AA4F00B93DA9 /* followerDetailsVC.swift */; };
+		FEF2785D1F11AB0000B93DA9 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF2785C1F11AB0000B93DA9 /* Tweet.swift */; };
+		FEF2785F1F11AC2B00B93DA9 /* tweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF2785E1F11AC2B00B93DA9 /* tweetCell.swift */; };
+		FEF278611F11AC5B00B93DA9 /* userTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF278601F11AC5B00B93DA9 /* userTopCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,10 @@
 		FEED539D1F0FF24500F4C262 /* FancyImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyImageView.swift; sourceTree = "<group>"; };
 		FEED539F1F0FF27000F4C262 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		FEED53A11F1023F000F4C262 /* twitterClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = twitterClient.entitlements; sourceTree = "<group>"; };
+		FEF2785A1F11AA4F00B93DA9 /* followerDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followerDetailsVC.swift; sourceTree = "<group>"; };
+		FEF2785C1F11AB0000B93DA9 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		FEF2785E1F11AC2B00B93DA9 /* tweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tweetCell.swift; sourceTree = "<group>"; };
+		FEF278601F11AC5B00B93DA9 /* userTopCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userTopCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				FEED53971F0FE3C600F4C262 /* Follower.swift */,
+				FEF2785C1F11AB0000B93DA9 /* Tweet.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -118,6 +127,8 @@
 				FE012ADC1F0EC19800EABFE4 /* Main.storyboard */,
 				FE012AE11F0EC19800EABFE4 /* LaunchScreen.storyboard */,
 				FEED539B1F0FF03900F4C262 /* followerCell.swift */,
+				FEF278601F11AC5B00B93DA9 /* userTopCell.swift */,
+				FEF2785E1F11AC2B00B93DA9 /* tweetCell.swift */,
 				FEED539D1F0FF24500F4C262 /* FancyImageView.swift */,
 				FEED539F1F0FF27000F4C262 /* CardView.swift */,
 			);
@@ -127,8 +138,9 @@
 		FEED53951F0FE05700F4C262 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				FEED538F1F0FB90600F4C262 /* followersVC.swift */,
 				FEED538D1F0FAB3100F4C262 /* loginVC.swift */,
+				FEED538F1F0FB90600F4C262 /* followersVC.swift */,
+				FEF2785A1F11AA4F00B93DA9 /* followerDetailsVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -277,10 +289,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEED539E1F0FF24500F4C262 /* FancyImageView.swift in Sources */,
+				FEF2785D1F11AB0000B93DA9 /* Tweet.swift in Sources */,
+				FEF278611F11AC5B00B93DA9 /* userTopCell.swift in Sources */,
 				FEED53901F0FB90600F4C262 /* followersVC.swift in Sources */,
 				FEED53981F0FE3C600F4C262 /* Follower.swift in Sources */,
+				FEF2785B1F11AA4F00B93DA9 /* followerDetailsVC.swift in Sources */,
 				FEED538E1F0FAB3100F4C262 /* loginVC.swift in Sources */,
 				FE012AD91F0EC19800EABFE4 /* AppDelegate.swift in Sources */,
+				FEF2785F1F11AC2B00B93DA9 /* tweetCell.swift in Sources */,
 				FEED53921F0FBBF600F4C262 /* Constants.swift in Sources */,
 				FEED53A01F0FF27000F4C262 /* CardView.swift in Sources */,
 				FEED539C1F0FF03900F4C262 /* followerCell.swift in Sources */,

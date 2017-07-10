@@ -13,6 +13,8 @@ import ARSLineProgress
 class followersVC: UITableViewController {
     
     var followers = [Follower]()
+    var passedHandle: String?
+    var passedFullName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,6 +103,23 @@ class followersVC: UITableViewController {
         return 120
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        passedHandle = followers[indexPath.row].handle
+        passedFullName = followers[indexPath.row].fullName
+        performSegue(withIdentifier: "followersToFollowerDetails", sender: nil)
+    }
+    
+    
+    //MARK: - prepare for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "followersToFollowerDetails" {
+            let vc = segue.destination as! followerDetailsVC
+            vc.title = passedFullName!
+            vc.passedHandle = passedHandle!
+        }
+    }
 
  
 
