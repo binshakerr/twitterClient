@@ -9,77 +9,87 @@
 import UIKit
 import STTwitter
 import ARSLineProgress
+import NYTPhotoViewer
 
-class followerDetailsVC: UITableViewController {
+class followerDetailsVC: UITableViewController, NYTPhotosViewControllerDelegate {
     
     var passedHandle : String!
     var userTweets = [Tweet]()
     var modefiedProfileImageUrl:String?
     var modefiedBannerImageUrl: String?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
 
         
-        let st = STTwitterAPI(oAuthConsumerKey: K_consumerKey, consumerSecret: K_consumerSecret, oauthToken: K_accessToken, oauthTokenSecret: K_accessSecret)
-        
-        st!.verifyCredentials(userSuccessBlock: { (username, userID) in
+        if currentReachabilityStatus == .notReachable { //Offline
             
-            ARSLineProgress.show()
+            print("OFFLINE")
+            alertError(message: "There is no Internet Connection, Please connect and retry later.")
             
-            //Getting Profile Image and cover photo
-            st!.getUserInformation(for: self.passedHandle, successBlock: { (info) in
-                
-                let infoDic = info as! [String: Any]
-                let profileImageUrl = infoDic["profile_image_url"] as? String
-                let bannerImageUrl = infoDic["profile_banner_url"] as? String
-                
-                if profileImageUrl != nil && profileImageUrl != "" {
-                    self.modefiedProfileImageUrl = profileImageUrl!.replacingOccurrences(of: "_normal", with: "")
-                }
-                
-                if bannerImageUrl != nil && bannerImageUrl != "" {
-                    self.modefiedBannerImageUrl = bannerImageUrl!
-                }
-
-            }, errorBlock: { (error) in
-                print(error!.localizedDescription)
-            })
+        } else { //Online - call api
+         
+            let st = STTwitterAPI(oAuthConsumerKey: K_consumerKey, consumerSecret: K_consumerSecret, oauthToken: K_accessToken, oauthTokenSecret: K_accessSecret)
             
-            
-           //Getting Tweets
-            st!.getUserTimeline(withScreenName: self.passedHandle, count: 10, successBlock: { (tweets) in
+            st!.verifyCredentials(userSuccessBlock: { (username, userID) in
                 
-                let tweetsArray = tweets as! [[String: Any]]
+                ARSLineProgress.show()
                 
-                for tweet in tweetsArray {
+                //Getting Profile Image and cover photo
+                st!.getUserInformation(for: self.passedHandle, successBlock: { (info) in
                     
-                    print("TWEET: \(tweet)")
-                    let entitiesDic = tweet["entities"] as? [String: Any]
-                    let mediaArray = entitiesDic?["media"] as? [[String: Any]]
-                    let mediaUrl = mediaArray?[0]["media_url_https"] as? String
+                    let infoDic = info as! [String: Any]
+                    let profileImageUrl = infoDic["profile_image_url"] as? String
+                    let bannerImageUrl = infoDic["profile_banner_url"] as? String
                     
-                    let t = Tweet(time: tweet["created_at"] as! String, content: tweet["text"] as! String, tweetImageURL: mediaUrl, FavCount: tweet["favorite_count"] as! Int, RetweetCount: tweet["retweet_count"] as! Int)
+                    if profileImageUrl != nil && profileImageUrl != "" {
+                        self.modefiedProfileImageUrl = profileImageUrl!.replacingOccurrences(of: "_normal", with: "")
+                    }
                     
-                    self.userTweets.append(t)
-                }
+                    if bannerImageUrl != nil && bannerImageUrl != "" {
+                        self.modefiedBannerImageUrl = bannerImageUrl!
+                    }
+                    
+                }, errorBlock: { (error) in
+                    self.alertError(message: error!.localizedDescription)
+                })
                 
-                DispatchQueue.main.async {
+                
+                //Getting Tweets
+                st!.getUserTimeline(withScreenName: self.passedHandle, count: 10, successBlock: { (tweets) in
+                    
+                    let tweetsArray = tweets as! [[String: Any]]
+                    
+                    for tweet in tweetsArray {
+                        
+                        print("TWEET: \(tweet)")
+                        let entitiesDic = tweet["entities"] as? [String: Any]
+                        let mediaArray = entitiesDic?["media"] as? [[String: Any]]
+                        let mediaUrl = mediaArray?[0]["media_url_https"] as? String
+                        
+                        let t = Tweet(time: tweet["created_at"] as! String, content: tweet["text"] as! String, tweetImageURL: mediaUrl, FavCount: tweet["favorite_count"] as! Int, RetweetCount: tweet["retweet_count"] as! Int)
+                        
+                        self.userTweets.append(t)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        ARSLineProgress.hide()
+                        self.tableView.reloadData()
+                    }
+                    
+                    
+                }, errorBlock: { (error) in
                     ARSLineProgress.hide()
-                    self.tableView.reloadData()
-                }
-
+                    self.alertError(message: error!.localizedDescription)
+                })
                 
             }, errorBlock: { (error) in
                 ARSLineProgress.hide()
-                print(error!.localizedDescription)
+                self.alertError(message: error!.localizedDescription)
             })
             
-        }, errorBlock: { (error) in
-            ARSLineProgress.hide()
-            print(error!.localizedDescription)
-        })
-
+        }
+        
     }
 
     
@@ -106,6 +116,25 @@ class followerDetailsVC: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "userTopCell", for: indexPath) as! userTopCell
             
             cell.setupCell(profileImageUrl: modefiedProfileImageUrl, bannerImageUrl: modefiedBannerImageUrl)
+            
+            
+            cell.viewProfilePhotoAction = {_ in
+                let title = NSAttributedString(string: "Profile Image", attributes: [NSForegroundColorAttributeName: UIColor.white])
+                let imageData = UIImageJPEGRepresentation(cell.profileImageView.image!, 1)
+                let image = NYTImage(image: cell.profileImageView.image, imageData: imageData, attributedCaptionTitle: title)
+                let photosViewController = NYTPhotosViewController(photos: [image])
+                photosViewController.delegate = self
+                self.present(photosViewController, animated: true, completion: nil)
+            }
+            
+            cell.viewBannerPhotoAction = {_ in
+                let title = NSAttributedString(string: "Banner Image", attributes: [NSForegroundColorAttributeName: UIColor.white])
+                let imageData = UIImageJPEGRepresentation(cell.backgroundImage.image!, 1)
+                let image = NYTImage(image: cell.backgroundImage.image, imageData: imageData, attributedCaptionTitle: title)
+                let photosViewController = NYTPhotosViewController(photos: [image])
+                photosViewController.delegate = self
+                self.present(photosViewController, animated: true, completion: nil)
+            }
             
             return cell
         

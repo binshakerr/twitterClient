@@ -9,47 +9,100 @@
 import UIKit
 import STTwitter
 import ARSLineProgress
+import RealmSwift
 
 class followersVC: UITableViewController {
     
     var followers = [Follower]()
     var passedHandle: String?
     var passedFullName: String?
+    
+    let realm = try! Realm()
+    var savedFollowers : Results<SavedFollower>{
+        get {
+            return realm.objects(SavedFollower.self)
+        }
+    }
+    
+    //removing all
+//    let realm = try! Realm()
+//    try! realm.write {
+//        realm.deleteAll()
+//    }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+       
+        if currentReachabilityStatus == .reachableViaWiFi {
+            print("wifi")
+        }
         
-        let st = STTwitterAPI(oAuthConsumerKey: K_consumerKey, consumerSecret: K_consumerSecret, oauthToken: K_accessToken, oauthTokenSecret: K_accessSecret)
+        if currentReachabilityStatus == .reachableViaWWAN {
+            print("cellular")
+        }
         
-        st!.verifyCredentials(userSuccessBlock: { (username, userID) in
+        if currentReachabilityStatus == .notReachable { //Offline - load the coreData
             
-            ARSLineProgress.show()
+            print("OFFLINE")
+            alertError(message: "There is no Internet Connection, Please connect and retry later.")
             
-            st!.getFollowersForScreenName(username, successBlock: { (followers) in
+            // load the core date
+            
+        } else { //Online - call api
+            
+            
+            let st = STTwitterAPI(oAuthConsumerKey: K_consumerKey, consumerSecret: K_consumerSecret, oauthToken: K_accessToken, oauthTokenSecret: K_accessSecret)
+            
+            st!.verifyCredentials(userSuccessBlock: { (username, userID) in
                 
-                let followersArray = followers as! [[String: Any]]
+                ARSLineProgress.show()
                 
-                for follower in followersArray {
+                st!.getFollowersForScreenName(username, successBlock: { (followers) in
                     
-                    let f = Follower(fullName: follower["name"] as! String, handle: follower["screen_name"] as! String, profileImageURL: follower["profile_image_url"] as! String, bio: follower["description"] as? String)
- 
-                    self.followers.append(f)
-                }
-                
-                DispatchQueue.main.async {
+                    let followersArray = followers as! [[String: Any]]
+                    
+                    for follower in followersArray {
+                        
+                        let f = Follower(fullName: follower["name"] as! String, handle: follower["screen_name"] as! String, profileImageURL: follower["profile_image_url"] as! String, bio: follower["description"] as? String)
+                        
+                        self.followers.append(f)
+                        
+//                        //save to realm
+//                        let sf = SavedFollower()
+//                        sf.fullName = f.fullName
+//                        sf.handle = f.handle
+//                        sf.profileImageURL = f.profileImageURL
+//                        sf.handle = f.handle
+//                        
+//                        do {
+//                            try self.realm.write {
+//                                self.realm.add(sf)
+//                            }
+//                        } catch {
+//                            self.alertError(message: error.localizedDescription)
+//                        }
+                        
+                    }
+                    
+                    DispatchQueue.main.async {
+                        ARSLineProgress.hide()
+                        self.tableView.reloadData()
+                    }
+                    
+                }, errorBlock: { (error) in
                     ARSLineProgress.hide()
-                    self.tableView.reloadData()
-                }
+                    self.alertError(message: error!.localizedDescription)
+                })
                 
             }, errorBlock: { (error) in
                 ARSLineProgress.hide()
-                print(error!.localizedDescription)
+                self.alertError(message: error!.localizedDescription)
             })
             
-        }, errorBlock: { (error) in
-            ARSLineProgress.hide()
-            print(error!.localizedDescription)
-        })
+        }
+        
+  
         
     }
     

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import RealmSwift
 
 struct Follower {
     
@@ -22,4 +22,14 @@ struct Follower {
         self.profileImageURL = profileImageURL
         self.bio = bio
     }
+
+}
+
+
+class SavedFollower : Object {
+    
+    dynamic var fullName = ""
+    dynamic var handle = ""
+    dynamic var profileImageURL = ""
+    dynamic var bio = ""
 }

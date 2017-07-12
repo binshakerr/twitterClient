@@ -13,18 +13,18 @@ class loginVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
-                print("signed in as \(session!.userName)")
                 self.performSegue(withIdentifier: "signinToFollowers", sender: nil)
             } else {
-                print("error: \(error!.localizedDescription)")
+                self.alertError(message: error!.localizedDescription)
             }
         })
         logInButton.center = self.view.center
         self.view.addSubview(logInButton)
     }
+    
 
 
 }

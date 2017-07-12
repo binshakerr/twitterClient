@@ -15,10 +15,28 @@ class userTopCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    var viewProfilePhotoAction : ((UITableViewCell) -> Void)?
+    var viewBannerPhotoAction : ((UITableViewCell) -> Void)?
+
     
     override func awakeFromNib() {
         profileImageView.layer.borderColor = UIColor.white.cgColor
         profileImageView.layer.borderWidth = 5
+        
+        let viewProfilePhotoTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.viewProfilephoto))
+        self.profileImageView.addGestureRecognizer(viewProfilePhotoTapGesture)
+
+        let viewBannerPhotoTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.viewBannerphoto))
+        self.backgroundImage.addGestureRecognizer(viewBannerPhotoTapGesture)
+
+    }
+    
+    func viewProfilephoto(sender: UITapGestureRecognizer) {
+        viewProfilePhotoAction?(self)
+    }
+    
+    func viewBannerphoto(sender: UITapGestureRecognizer) {
+        viewBannerPhotoAction?(self)
     }
     
     
@@ -28,14 +46,14 @@ class userTopCell: UITableViewCell {
             let url = URL(string: profileImageUrl!)
             profileImageView.kf.setImage(with: url)
         } else {
-            //setup default profile image
+            profileImageView.image = UIImage(named: "defaultProfile")
         }
         
         if bannerImageUrl != nil && bannerImageUrl != "" {
             let url = URL(string: bannerImageUrl!)
             backgroundImage.kf.setImage(with: url)
         } else {
-            //setup default background
+            backgroundImage.image = UIImage(named: "defaultBanner")
         }
     }
     

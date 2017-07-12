@@ -12,6 +12,10 @@
 		FE012ADE1F0EC19800EABFE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE012ADC1F0EC19800EABFE4 /* Main.storyboard */; };
 		FE012AE01F0EC19800EABFE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE012ADF1F0EC19800EABFE4 /* Assets.xcassets */; };
 		FE012AE31F0EC19800EABFE4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE012AE11F0EC19800EABFE4 /* LaunchScreen.storyboard */; };
+		FE2C598F1F156146006C155D /* NYTImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2C598E1F156146006C155D /* NYTImage.swift */; };
+		FE2C59911F156200006C155D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2C59901F156200006C155D /* SystemConfiguration.framework */; };
+		FE2C59931F15625C006C155D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2C59921F15625C006C155D /* Reachability.swift */; };
+		FE2C59951F1565EE006C155D /* HelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2C59941F1565EE006C155D /* HelperMethods.swift */; };
 		FEED538C1F0FAAEC00F4C262 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEED538B1F0FAAEC00F4C262 /* SafariServices.framework */; };
 		FEED538E1F0FAB3100F4C262 /* loginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED538D1F0FAB3100F4C262 /* loginVC.swift */; };
 		FEED53901F0FB90600F4C262 /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED538F1F0FB90600F4C262 /* followersVC.swift */; };
@@ -37,6 +41,11 @@
 		FE012AE21F0EC19800EABFE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE012AE41F0EC19800EABFE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE012AEA1F0EC4CE00EABFE4 /* twitterClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "twitterClient-Bridging-Header.h"; sourceTree = "<group>"; };
+		FE2C598E1F156146006C155D /* NYTImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYTImage.swift; sourceTree = "<group>"; };
+		FE2C59901F156200006C155D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FE2C59921F15625C006C155D /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		FE2C59941F1565EE006C155D /* HelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperMethods.swift; sourceTree = "<group>"; };
+		FE98466A1F15844E000FBAAE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FEED538B1F0FAAEC00F4C262 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		FEED538D1F0FAB3100F4C262 /* loginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginVC.swift; sourceTree = "<group>"; };
 		FEED538F1F0FB90600F4C262 /* followersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersVC.swift; sourceTree = "<group>"; };
@@ -57,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE2C59911F156200006C155D /* SystemConfiguration.framework in Frameworks */,
 				FEED538C1F0FAAEC00F4C262 /* SafariServices.framework in Frameworks */,
 				1A8604139EB761925991238E /* Pods_twitterClient.framework in Frameworks */,
 			);
@@ -68,6 +78,8 @@
 		4637F0FEC0E85E8169DF44C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE98466A1F15844E000FBAAE /* CoreData.framework */,
+				FE2C59901F156200006C155D /* SystemConfiguration.framework */,
 				FEED538B1F0FAAEC00F4C262 /* SafariServices.framework */,
 				2548C6CC97A7D9334B21252E /* Pods_twitterClient.framework */,
 			);
@@ -131,6 +143,7 @@
 				FEF2785E1F11AC2B00B93DA9 /* tweetCell.swift */,
 				FEED539D1F0FF24500F4C262 /* FancyImageView.swift */,
 				FEED539F1F0FF27000F4C262 /* CardView.swift */,
+				FE2C598E1F156146006C155D /* NYTImage.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -154,6 +167,8 @@
 				FE012AEA1F0EC4CE00EABFE4 /* twitterClient-Bridging-Header.h */,
 				FEED53A11F1023F000F4C262 /* twitterClient.entitlements */,
 				FEED53911F0FBBF600F4C262 /* Constants.swift */,
+				FE2C59921F15625C006C155D /* Reachability.swift */,
+				FE2C59941F1565EE006C155D /* HelperMethods.swift */,
 			);
 			name = Others;
 			sourceTree = "<group>";
@@ -288,6 +303,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE2C59931F15625C006C155D /* Reachability.swift in Sources */,
+				FE2C598F1F156146006C155D /* NYTImage.swift in Sources */,
+				FE2C59951F1565EE006C155D /* HelperMethods.swift in Sources */,
 				FEED539E1F0FF24500F4C262 /* FancyImageView.swift in Sources */,
 				FEF2785D1F11AB0000B93DA9 /* Tweet.swift in Sources */,
 				FEF278611F11AC5B00B93DA9 /* userTopCell.swift in Sources */,

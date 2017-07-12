@@ -3,13 +3,16 @@ use_frameworks!
 
 target 'twitterClient' do
   
+  #twitter
   pod 'TwitterKit'
   pod 'STTwitter'
 
-  pod 'Alamofire'
-  pod 'SwiftyJSON'
-
-  pod 'ARSLineProgress'
+  #caching
+  pod 'RealmSwift'
   pod 'Kingfisher'
+
+  #UI
+  pod 'NYTPhotoViewer'
+  pod 'ARSLineProgress'
 
 end

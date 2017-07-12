@@ -156,11 +156,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OyP-rh-P9c">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OyP-rh-P9c">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DWV-oK-LlL" customClass="FancyImageView" customModule="twitterClient" customModuleProvider="target">
+                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DWV-oK-LlL" customClass="FancyImageView" customModule="twitterClient" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="100" width="100" height="100"/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -175,9 +175,10 @@
                                         <constraint firstItem="OyP-rh-P9c" firstAttribute="top" secondItem="6k5-Pc-RoB" secondAttribute="top" id="IS4-Xd-FoK"/>
                                         <constraint firstItem="OyP-rh-P9c" firstAttribute="leading" secondItem="6k5-Pc-RoB" secondAttribute="leading" id="XvQ-5X-huH"/>
                                         <constraint firstAttribute="bottom" secondItem="DWV-oK-LlL" secondAttribute="bottom" id="oFJ-ik-tSB"/>
-                                        <constraint firstAttribute="bottom" secondItem="OyP-rh-P9c" secondAttribute="bottom" id="vBi-i8-CKN"/>
+                                        <constraint firstAttribute="bottom" secondItem="OyP-rh-P9c" secondAttribute="bottom" constant="50" id="vBi-i8-CKN"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="backgroundImage" destination="OyP-rh-P9c" id="021-Xt-sgg"/>
                                     <outlet property="profileImageView" destination="DWV-oK-LlL" id="dgL-QP-CVT"/>
