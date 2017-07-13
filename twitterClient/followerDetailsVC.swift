@@ -18,28 +18,47 @@ class followerDetailsVC: UITableViewController, NYTPhotosViewControllerDelegate 
     var modefiedProfileImageUrl:String?
     var modefiedBannerImageUrl: String?
 
+    override func viewDidLoad() {
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControlEvents.valueChanged)
+    }
+    
+    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        
+        authenticateUser()
+        refreshControl.endRefreshing()
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
         print(currentReachabilityStatus)
+        authenticateUser()
+    }
+    
+    
+    func authenticateUser(){
         
         if currentReachabilityStatus == .notReachable { //Offline
             
             alertError(message: "There is no Internet Connection, Please connect and retry later.")
             
         } else { //Online - call API
-         
+            
             let st = STTwitterAPI(oAuthConsumerKey: K_consumerKey, consumerSecret: K_consumerSecret, oauthToken: K_accessToken, oauthTokenSecret: K_accessSecret)
             
             
             st!.verifyCredentials(userSuccessBlock: { (username, userID) in
                 
                 self.getUserImages(st: st!)
-
+                
             }, errorBlock: { (error) in
                 ARSLineProgress.hide()
                 self.alertError(message: error!.localizedDescription)
             })
+            
         }
     }
 
@@ -79,6 +98,9 @@ class followerDetailsVC: UITableViewController, NYTPhotosViewControllerDelegate 
         ARSLineProgress.show()
         
         st.getUserTimeline(withScreenName: self.passedHandle, count: 10, successBlock: { (tweets) in
+            
+            //removing old data
+            self.userTweets.removeAll()
             
             let tweetsArray = tweets as! [[String: Any]]
             
