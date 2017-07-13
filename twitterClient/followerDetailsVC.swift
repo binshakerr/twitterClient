@@ -21,77 +21,92 @@ class followerDetailsVC: UITableViewController, NYTPhotosViewControllerDelegate 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
+        print(currentReachabilityStatus)
         
         if currentReachabilityStatus == .notReachable { //Offline
             
-            print("OFFLINE")
             alertError(message: "There is no Internet Connection, Please connect and retry later.")
             
-        } else { //Online - call api
+        } else { //Online - call API
          
             let st = STTwitterAPI(oAuthConsumerKey: K_consumerKey, consumerSecret: K_consumerSecret, oauthToken: K_accessToken, oauthTokenSecret: K_accessSecret)
             
+            
             st!.verifyCredentials(userSuccessBlock: { (username, userID) in
                 
-                ARSLineProgress.show()
-                
-                //Getting Profile Image and cover photo
-                st!.getUserInformation(for: self.passedHandle, successBlock: { (info) in
-                    
-                    let infoDic = info as! [String: Any]
-                    let profileImageUrl = infoDic["profile_image_url"] as? String
-                    let bannerImageUrl = infoDic["profile_banner_url"] as? String
-                    
-                    if profileImageUrl != nil && profileImageUrl != "" {
-                        self.modefiedProfileImageUrl = profileImageUrl!.replacingOccurrences(of: "_normal", with: "")
-                    }
-                    
-                    if bannerImageUrl != nil && bannerImageUrl != "" {
-                        self.modefiedBannerImageUrl = bannerImageUrl!
-                    }
-                    
-                }, errorBlock: { (error) in
-                    self.alertError(message: error!.localizedDescription)
-                })
-                
-                
-                //Getting Tweets
-                st!.getUserTimeline(withScreenName: self.passedHandle, count: 10, successBlock: { (tweets) in
-                    
-                    let tweetsArray = tweets as! [[String: Any]]
-                    
-                    for tweet in tweetsArray {
-                        
-                        print("TWEET: \(tweet)")
-                        let entitiesDic = tweet["entities"] as? [String: Any]
-                        let mediaArray = entitiesDic?["media"] as? [[String: Any]]
-                        let mediaUrl = mediaArray?[0]["media_url_https"] as? String
-                        
-                        let t = Tweet(time: tweet["created_at"] as! String, content: tweet["text"] as! String, tweetImageURL: mediaUrl, FavCount: tweet["favorite_count"] as! Int, RetweetCount: tweet["retweet_count"] as! Int)
-                        
-                        self.userTweets.append(t)
-                    }
-                    
-                    DispatchQueue.main.async {
-                        ARSLineProgress.hide()
-                        self.tableView.reloadData()
-                    }
-                    
-                    
-                }, errorBlock: { (error) in
-                    ARSLineProgress.hide()
-                    self.alertError(message: error!.localizedDescription)
-                })
-                
+                self.getUserImages(st: st!)
+
             }, errorBlock: { (error) in
                 ARSLineProgress.hide()
                 self.alertError(message: error!.localizedDescription)
             })
-            
         }
-        
     }
 
+    
+    func getUserImages(st: STTwitterAPI) {
+        
+        ARSLineProgress.show()
+        
+        st.getUserInformation(for: self.passedHandle, successBlock: { (info) in
+            
+            let infoDic = info as! [String: Any]
+            let profileImageUrl = infoDic["profile_image_url"] as? String
+            let bannerImageUrl = infoDic["profile_banner_url"] as? String
+            
+            if profileImageUrl != nil && profileImageUrl != "" {
+                self.modefiedProfileImageUrl = profileImageUrl!.replacingOccurrences(of: "_normal", with: "")
+            }
+            
+            if bannerImageUrl != nil && bannerImageUrl != "" {
+                self.modefiedBannerImageUrl = bannerImageUrl!
+            }
+            
+            DispatchQueue.main.async {
+                ARSLineProgress.hide()
+                self.tableView.reloadData()
+                self.getUserTweets(st: st)
+            }
+            
+        }, errorBlock: { (error) in
+            self.alertError(message: error!.localizedDescription)
+        })
+    }
+    
+    
+    func getUserTweets(st: STTwitterAPI) {
+        
+        ARSLineProgress.show()
+        
+        st.getUserTimeline(withScreenName: self.passedHandle, count: 10, successBlock: { (tweets) in
+            
+            let tweetsArray = tweets as! [[String: Any]]
+            
+            for tweet in tweetsArray {
+                
+                print("TWEET: \(tweet)")
+                let entitiesDic = tweet["entities"] as? [String: Any]
+                let mediaArray = entitiesDic?["media"] as? [[String: Any]]
+                let mediaUrl = mediaArray?[0]["media_url_https"] as? String
+                
+                let t = Tweet(time: tweet["created_at"] as! String, content: tweet["text"] as! String, tweetImageURL: mediaUrl, FavCount: tweet["favorite_count"] as! Int, RetweetCount: tweet["retweet_count"] as! Int)
+                
+                self.userTweets.append(t)
+            }
+            
+            DispatchQueue.main.async {
+                ARSLineProgress.hide()
+                self.tableView.reloadData()
+            }
+            
+            
+        }, errorBlock: { (error) in
+            ARSLineProgress.hide()
+            self.alertError(message: error!.localizedDescription)
+        })
+        
+    }
+    
     
     // MARK: - Table view data source
 

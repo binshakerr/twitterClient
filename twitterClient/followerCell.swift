@@ -27,9 +27,9 @@ class followerCell: UITableViewCell {
         let url = URL(string: follower.profileImageURL)
         profileImageView.kf.setImage(with: url)
         
-        if follower.bio != nil {
-            bioLabel.text = follower.bio!
-        }
+       // if follower.bio != nil {
+            bioLabel.text = follower.bio
+       // }
     }
 
   

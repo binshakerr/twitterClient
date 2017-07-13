@@ -13,41 +13,19 @@ import RealmSwift
 
 class followersVC: UITableViewController {
     
-    var followers = [Follower]()
     var passedHandle: String?
     var passedFullName: String?
-    
     let realm = try! Realm()
-    var savedFollowers : Results<SavedFollower>{
-        get {
-            return realm.objects(SavedFollower.self)
-        }
-    }
-    
-    //removing all
-//    let realm = try! Realm()
-//    try! realm.write {
-//        realm.deleteAll()
-//    }
-
+    lazy var followers: Results<Follower> = { self.realm.objects(Follower.self) }()
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-       
-        if currentReachabilityStatus == .reachableViaWiFi {
-            print("wifi")
-        }
-        
-        if currentReachabilityStatus == .reachableViaWWAN {
-            print("cellular")
-        }
-        
-        if currentReachabilityStatus == .notReachable { //Offline - load the coreData
+    
+        print(currentReachabilityStatus)
+    
+        if currentReachabilityStatus == .notReachable { //Offline - load saved Data
             
-            print("OFFLINE")
             alertError(message: "There is no Internet Connection, Please connect and retry later.")
-            
-            // load the core date
             
         } else { //Online - call api
             
@@ -56,54 +34,58 @@ class followersVC: UITableViewController {
             
             st!.verifyCredentials(userSuccessBlock: { (username, userID) in
                 
-                ARSLineProgress.show()
-                
-                st!.getFollowersForScreenName(username, successBlock: { (followers) in
-                    
-                    let followersArray = followers as! [[String: Any]]
-                    
-                    for follower in followersArray {
-                        
-                        let f = Follower(fullName: follower["name"] as! String, handle: follower["screen_name"] as! String, profileImageURL: follower["profile_image_url"] as! String, bio: follower["description"] as? String)
-                        
-                        self.followers.append(f)
-                        
-//                        //save to realm
-//                        let sf = SavedFollower()
-//                        sf.fullName = f.fullName
-//                        sf.handle = f.handle
-//                        sf.profileImageURL = f.profileImageURL
-//                        sf.handle = f.handle
-//                        
-//                        do {
-//                            try self.realm.write {
-//                                self.realm.add(sf)
-//                            }
-//                        } catch {
-//                            self.alertError(message: error.localizedDescription)
-//                        }
-                        
-                    }
-                    
-                    DispatchQueue.main.async {
-                        ARSLineProgress.hide()
-                        self.tableView.reloadData()
-                    }
-                    
-                }, errorBlock: { (error) in
-                    ARSLineProgress.hide()
-                    self.alertError(message: error!.localizedDescription)
-                })
+                self.getFollowers(st: st!, username: username!)
                 
             }, errorBlock: { (error) in
                 ARSLineProgress.hide()
                 self.alertError(message: error!.localizedDescription)
             })
-            
         }
+    }
+    
+    
+    func getFollowers(st: STTwitterAPI, username: String){
         
-  
+        ARSLineProgress.show()
         
+        st.getFollowersForScreenName(username, successBlock: { (followers) in
+            
+            //removing old data
+            try! self.realm.write {
+                self.realm.deleteAll()
+            }
+            
+            let followersArray = followers as! [[String: Any]]
+            
+            for follower in followersArray {
+                
+                //saving new data to realm
+                let f = Follower()
+                f.fullName = follower["name"] as! String
+                f.handle = follower["screen_name"] as! String
+                f.profileImageURL = follower["profile_image_url"] as! String
+                if follower["description"] != nil {
+                    f.bio = follower["description"] as! String
+                }
+            
+                do {
+                    try self.realm.write {
+                        self.realm.add(f)
+                    }
+                } catch {
+                    self.alertError(message: error.localizedDescription)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                ARSLineProgress.hide()
+                self.tableView.reloadData()
+            }
+            
+        }, errorBlock: { (error) in
+            ARSLineProgress.hide()
+            self.alertError(message: error!.localizedDescription)
+        })
     }
     
     
@@ -112,6 +94,11 @@ class followersVC: UITableViewController {
         
         let alert = UIAlertController(title: "Sign out", message: "Are you sure you want to sign out?", preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .destructive) {_ in
+            
+            //removing all stored data
+            try! self.realm.write {
+                self.realm.deleteAll()
+            }
             
             let store = Twitter.sharedInstance().sessionStore
             if let userID = store.session()?.userID {
